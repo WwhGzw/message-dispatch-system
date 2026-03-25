@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * 消息下发结果
  */
@@ -12,7 +14,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SendResult {
+public class SendResult implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /** 消息ID */
     private String msgId;

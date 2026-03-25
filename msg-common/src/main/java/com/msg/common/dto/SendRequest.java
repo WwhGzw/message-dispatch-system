@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -16,7 +17,9 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SendRequest {
+public class SendRequest implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /** 业务类型 */
     @NotBlank(message = "bizType不能为空")

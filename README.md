@@ -14,6 +14,8 @@
 | Redis | 6.x+ | 缓存 & 分布式锁 |
 | MyBatis-Plus | 3.5.5 | ORM |
 | Freemarker | 2.3.32 | 模板引擎 |
+| Dubbo | 3.2.9 | RPC 框架 |
+| Nacos | 2.2.4 | 注册中心 |
 | Sentinel | 1.8.7 | 限流熔断 |
 | Hutool | 5.8.24 | 雪花ID生成 |
 | jqwik | 1.8.2 | 属性测试 |
@@ -55,20 +57,40 @@ CANCELLED  FAILED → RETRYING → SENDING
 
 合法转换：PENDING→SENDING、PENDING→CANCELLED、SENDING→SUCCESS、SENDING→FAILED、SENDING→CANCELLED、FAILED→RETRYING、FAILED→DEAD_LETTER、RETRYING→SENDING
 
-## API 接口
+## 服务接口（Dubbo RPC）
 
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| POST | `/msg/send/now` | 即时消息下发 |
-| POST | `/msg/send/delay` | 延迟/定时消息下发 |
-| GET | `/msg/status` | 消息状态查询 |
-| POST | `/msg/cancel` | 消息撤回 |
-| POST | `/msg/callback/receipt` | 渠道回执回调 |
+业务方通过 msg-common 依赖引入 `MessageRpcService` 接口，使用 `@DubboReference` 注入调用：
 
-请求头：
-- `X-App-Key` — 调用方标识
-- `X-Signature` — HMAC-SHA256 签名
-- `X-Timestamp` — 请求时间戳（毫秒）
+```java
+@DubboReference(version = "1.0.0")
+private MessageRpcService messageRpcService;
+
+// 即时下发
+SendResult result = messageRpcService.sendNow(request);
+
+// 延迟下发
+SendResult result = messageRpcService.sendDelay(delayRequest);
+
+// 状态查询
+MessageStatusVO status = messageRpcService.queryStatus(query);
+
+// 消息撤回
+CancelResult result = messageRpcService.cancel(cancelRequest);
+
+// 渠道回执
+messageRpcService.handleReceipt(receiptCallback);
+```
+
+| 方法 | 说明 |
+|------|------|
+| `sendNow(SendRequest)` | 即时消息下发 |
+| `sendDelay(DelaySendRequest)` | 延迟/定时消息下发 |
+| `queryStatus(StatusQuery)` | 消息状态查询 |
+| `cancel(CancelRequest)` | 消息撤回 |
+| `handleReceipt(ReceiptCallback)` | 渠道回执回调 |
+
+注册中心：Nacos（默认 `localhost:8848`）
+协议：Dubbo（默认端口 `20880`）
 
 ## 环境依赖
 
@@ -77,6 +99,7 @@ CANCELLED  FAILED → RETRYING → SENDING
 - MySQL 8.0 — 执行 `msg-common/src/main/resources/sql/schema.sql` 初始化表结构
 - Redis 6.x+
 - RocketMQ 4.9.x（NameServer + Broker）
+- Nacos 2.x（注册中心，Dubbo 服务注册发现）
 
 ## 快速开始
 
@@ -112,13 +135,10 @@ spring.redis.port: 6379
 # RocketMQ
 rocketmq.name-server: localhost:9876
 
-# 鉴权（AppKey:Secret 逗号分隔）
-msg.auth.app-keys: myAppKey:mySecret
-
-# 限流阈值
-msg.ratelimit.api-qps: 1000
-msg.ratelimit.appkey-qps: 100
-msg.ratelimit.ip-qps: 50
+# Dubbo RPC
+dubbo.protocol.name: dubbo
+dubbo.protocol.port: 20880
+dubbo.registry.address: nacos://localhost:8848
 
 # 定时任务
 msg.job.scan-interval: 60000   # 扫描间隔（毫秒）

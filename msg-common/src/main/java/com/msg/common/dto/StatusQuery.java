@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * 消息状态查询条件
  * 支持按 msgId 或 bizType+bizId 查询
@@ -13,7 +15,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StatusQuery {
+public class StatusQuery implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /** 消息ID（按msgId查询时使用） */
     private String msgId;

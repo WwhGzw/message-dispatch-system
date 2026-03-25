@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
+import java.io.Serializable;
+
 /**
  * 消息撤回请求
  */
@@ -14,7 +16,9 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CancelRequest {
+public class CancelRequest implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /** 消息ID */
     @NotBlank(message = "msgId不能为空")

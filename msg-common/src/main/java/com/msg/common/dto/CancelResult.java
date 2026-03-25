@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * 消息撤回结果
  */
@@ -12,7 +14,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CancelResult {
+public class CancelResult implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /** 是否成功 */
     private boolean success;

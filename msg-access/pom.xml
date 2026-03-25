@@ -21,20 +21,26 @@
             <artifactId>msg-common</artifactId>
         </dependency>
 
-        <!-- Spring Web -->
+        <!-- Spring Web (保留用于渠道回执 HTTP 回调) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Dubbo -->
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-registry-nacos</artifactId>
         </dependency>
 
         <!-- Sentinel -->
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-spring-webmvc-adapter</artifactId>
         </dependency>
 
         <!-- RocketMQ (for receipt callback) -->

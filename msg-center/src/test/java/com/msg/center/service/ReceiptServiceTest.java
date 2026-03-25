@@ -1,7 +1,7 @@
 package com.msg.center.service;
 
-import com.msg.access.auth.HmacSignatureUtil;
-import com.msg.access.dto.ReceiptCallback;
+import com.msg.common.util.HmacSignatureUtil;
+import com.msg.common.dto.ReceiptCallback;
 import com.msg.center.statemachine.MessageStateMachine;
 import com.msg.common.entity.MessageEntity;
 import com.msg.common.entity.MessageReceiptEntity;

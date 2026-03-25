@@ -27,6 +27,18 @@ spring:
         min-idle: 4
         max-wait: 3000ms
 
+# Dubbo RPC 配置
+dubbo:
+  application:
+    name: msg-access
+  protocol:
+    name: dubbo
+    port: 20880
+  registry:
+    address: nacos://localhost:8848
+  scan:
+    base-packages: com.msg.access.service.impl
+
 mybatis-plus:
   mapper-locations: classpath*:mapper/**/*.xml
   configuration:

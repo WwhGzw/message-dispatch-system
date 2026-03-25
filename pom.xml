@@ -37,6 +37,8 @@
         <sentinel.version>1.8.7</sentinel.version>
         <freemarker.version>2.3.32</freemarker.version>
         <snowflake.version>1.0.6</snowflake.version>
+        <dubbo.version>3.2.9</dubbo.version>
+        <nacos-client.version>2.2.4</nacos-client.version>
         <jqwik.version>1.8.2</jqwik.version>
         <testcontainers.version>1.19.3</testcontainers.version>
     </properties>
@@ -88,6 +90,18 @@
                 <groupId>com.alibaba.csp</groupId>
                 <artifactId>sentinel-spring-webmvc-adapter</artifactId>
                 <version>${sentinel.version}</version>
+            </dependency>
+
+            <!-- Dubbo -->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-registry-nacos</artifactId>
+                <version>${dubbo.version}</version>
             </dependency>
 
             <!-- Freemarker -->
