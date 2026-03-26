@@ -1,0 +1,67 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: mq-delivery-test
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+  redis:
+    host: localhost
+    port: 6379
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    listener:
+      simple:
+        acknowledge-mode: manual
+        prefetch: 10
+
+# Dubbo RPC 配置
+dubbo:
+  application:
+    name: mq-delivery-test
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: N/A
+
+# MyBatis-Plus 配置
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: assign_id
+
+# MQ Delivery 配置
+mq:
+  queue:
+    main: mq.delivery.main.test
+    receipt: mq.delivery.receipt.test
+    dlq: mq.delivery.dlq.test
+  retry:
+    max-attempts: 5
+    initial-delay-seconds: 1
+    max-delay-seconds: 300
+  http:
+    connection-timeout-seconds: 5
+    read-timeout-seconds: 30
+  lock:
+    timeout-seconds: 60
+
+# 日志配置
+logging:
+  level:
+    com.msg: DEBUG
+    org.springframework.amqp: WARN
+    org.springframework.data.redis: WARN
