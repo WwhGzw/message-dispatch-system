@@ -18,10 +18,6 @@
     <name>Message Delivery System</name>
 
     <modules>
-        <module>msg-common</module>
-        <module>msg-access</module>
-        <module>msg-center</module>
-        <module>msg-executor</module>
         <module>mq-delivery</module>
     </modules>
 
@@ -53,13 +49,6 @@
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <!-- Internal Modules -->
-            <dependency>
-                <groupId>com.msg</groupId>
-                <artifactId>msg-common</artifactId>
-                <version>${project.version}</version>
             </dependency>
 
             <!-- MyBatis-Plus -->

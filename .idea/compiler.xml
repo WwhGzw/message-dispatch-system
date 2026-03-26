@@ -10,23 +10,15 @@
           <entry name="$PROJECT_DIR$/../../maven/apache-maven-3.9.12-bin/apache-maven-3.9.12/lib/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
           <entry name="$PROJECT_DIR$/../../maven/apache-maven-3.9.12-bin/apache-maven-3.9.12/lib/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
-        <module name="msg-common" />
-        <module name="msg-center" />
-        <module name="msg-executor" />
-      </profile>
-      <profile name="Annotation profile for mq-delivery" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$PROJECT_DIR$/../../maven/apache-maven-3.9.12-bin/apache-maven-3.9.12/lib/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
-        </processorPath>
         <module name="mq-delivery" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="msg-access" target="1.8" />
       <module name="msg-admin" target="1.8" />
+      <module name="msg-center" target="1.8" />
+      <module name="msg-common" target="1.8" />
+      <module name="msg-executor" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

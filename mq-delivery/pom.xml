@@ -15,12 +15,6 @@
     <description>MQ投递服务：基于RabbitMQ的消息队列投递系统，提供可靠消息投递、回执跟踪、自动重试</description>
 
     <dependencies>
-        <!-- Internal -->
-        <dependency>
-            <groupId>com.msg</groupId>
-            <artifactId>msg-common</artifactId>
-        </dependency>
-
         <!-- Spring Boot Starter Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

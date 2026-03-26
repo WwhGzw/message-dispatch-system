@@ -6,8 +6,6 @@ import com.msg.delivery.dto.Receipt;
 import com.msg.delivery.dto.RetryAttempt;
 import com.msg.delivery.exception.QueuePublishException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.MessageProperties;
-import org.springframework.amqp.rabbit.connection.CorrelatedPublisherConfirmsAndReturnsCallback;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -79,9 +77,8 @@ public class RabbitMQPublisher {
                 MAIN_ROUTING_KEY,
                 message,
                 msg -> {
-                    // Set persistent delivery mode
-                    msg.getMessageProperties().setDeliveryMode(MessageProperties.DEFAULT_DELIVERY_MODE);
-                    msg.getMessageProperties().setPersistent(true);
+                    // Set persistent delivery mode (2 = PERSISTENT)
+                    msg.getMessageProperties().setDeliveryMode(org.springframework.amqp.core.MessageDeliveryMode.PERSISTENT);
                     return msg;
                 }
             );
@@ -132,8 +129,8 @@ public class RabbitMQPublisher {
                 RECEIPT_ROUTING_KEY,
                 receipt,
                 msg -> {
-                    // Set persistent delivery mode
-                    msg.getMessageProperties().setPersistent(true);
+                    // Set persistent delivery mode (2 = PERSISTENT)
+                    msg.getMessageProperties().setDeliveryMode(org.springframework.amqp.core.MessageDeliveryMode.PERSISTENT);
                     // Add original message ID to headers for correlation
                     msg.getMessageProperties().setHeader("originalMessageId", originalMessageId);
                     return msg;
@@ -193,8 +190,8 @@ public class RabbitMQPublisher {
                 DLQ_ROUTING_KEY,
                 message,
                 msg -> {
-                    // Set persistent delivery mode
-                    msg.getMessageProperties().setPersistent(true);
+                    // Set persistent delivery mode (2 = PERSISTENT)
+                    msg.getMessageProperties().setDeliveryMode(org.springframework.amqp.core.MessageDeliveryMode.PERSISTENT);
                     
                     // Add failure metadata to headers
                     Map<String, Object> headers = new HashMap<>();
